@@ -1,0 +1,352 @@
+% \iffalse
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+____________________________
+THE REALSCRIPTS PACKAGE v0.1
+
+  \textsuperscript & \textsubscript:
+     now use fontspec to access
+     real superior/inferior characters,
+
+For more information see the documentation realscripts.pdf.
+
+____________
+Change History
+
+v0.1:
+ - Extracted from the xltxtra package
+ - First release
+
+___________________
+Will Robertson 2010
+Released under the LaTeX Project Public License
+%</readme>
+%<*internal>
+\fi
+%</internal>
+%
+%    \begin{macrocode}
+%<*driver>
+\ProvidesFile{realscripts.dtx}
+%</driver>
+%<package>\ProvidesPackage{realscripts}
+%<*package>
+  [2010/05/24 v0.1 Access OpenType subscripts and superscripts]
+%</package>
+%    \end{macrocode}
+%
+%
+%<*internal>
+\begingroup
+%</internal>
+%<*batchfile>
+\input docstrip.tex
+\keepsilent
+\preamble
+  ____________________________
+  The REALSCRIPTS package
+  (C) 2010 Will Robertson
+  License information appended
+
+\endpreamble
+\postamble
+
+Copyright (C) 2010 by Will Robertson <will.robertson@latex-project.org>
+
+Distributable under the LaTeX Project Public License,
+version 1.3c or higher (your choice). The latest version of
+this license is at: http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status)
+by Will Robertson.
+
+This work consists of the file  realscripts.dtx
+          and the derived files realscripts.sty,
+                                realscripts.ins, and
+                                realscripts.pdf.
+
+\endpostamble
+\askforoverwritefalse
+\generate{\file{\jobname.sty}{\from{\jobname.dtx}{package}}}
+%</batchfile>
+%<batchfile>\endbatchfile
+%<*internal>
+\generate{\file{\jobname.ins}{\from{\jobname.dtx}{batchfile}}}
+\nopreamble\nopostamble
+\generate{\file{README.txt}{\from{\jobname.dtx}{readme}}}
+\endgroup
+\immediate\write18{makeindex -s gind.ist -o \jobname.ind  \jobname.idx}
+\immediate\write18{makeindex -s gglo.ist -o \jobname.gls  \jobname.glo}
+%</internal>
+%
+%<*driver>
+\documentclass{ltxdoc}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+
+\def\@dotsep{1000}
+\setcounter{tocdepth}{2}
+
+\setcounter{IndexColumns}{2}
+\renewenvironment{theglossary}
+  {\small\list{}{}
+     \item\relax
+     \glossary@prologue\GlossaryParms
+     \let\item\@idxitem \ignorespaces
+     \def\pfill{\hspace*{\fill}}}
+  {\endlist}
+
+\usepackage{array,booktabs,calc,color,enumitem,fancyvrb,graphicx,ifthen,longtable,refstyle,varioref}
+\usepackage[rm]{titlesec}
+
+\usepackage{fontspec,realscripts}
+
+\linespread{1.05}      % A bit more space between lines
+\frenchspacing         % Remove ugly extra space after punctuation
+
+\definecolor{niceblue}{rgb}{0.2,0.4,0.6}
+\def\theCodelineNo{\textcolor{niceblue}{\sffamily\tiny\arabic{CodelineNo}}}
+\newcommand*\pkg[1]{\texttt{#1}}
+
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+%
+% \fi
+%
+% \errorcontextlines=999
+% \makeatletter
+%
+% \GetFileInfo{\jobname.sty}
+%
+% \title{The \pkg{\jobname} package}
+% \author{Will Robertson}
+% \date{\filedate \qquad \fileversion}
+%
+% \maketitle
+%
+% OpenType fonts provide the possiblity of using specially-drawn glyphs for
+% subscript and superscript text. \LaTeX\ by default simply uses a smaller
+% font size, which is acceptable if the font has optical sizes. Most fonts
+% don't, however.
+%
+% If you are using the \pkg{fontspec} package to select OpenType fonts
+% (or other sorts of fonts with the necessary font features), then loading
+% this package will provide versions of the \cmd\textsuperscript\ and
+% \cmd\textsubscript\ commands that take advantage of the OpenType font
+% features.
+%
+% This package will also patch the default \LaTeX\ footnote mechanism to
+% use these
+%
+%
+% These two macros have been redefined to take advantage, if possible, of actual superior or inferior glyphs in the main document font. This is very important for high-quality typesetting — compare the first two examples below; yes, they are the same font.
+% \begin{quotation}\color{niceblue}
+%	\fontspec{Skia}
+%	  |\textsuperscript     | \textsuperscript{abcdefghijklmnopqrstuvwxyz1234567890}\par
+%	  |\textsubscript       | \textsubscript{abcdefghijklmnopqrstuvwxyz1234567890}
+% \end{quotation}
+% The original definitions are available in starred verions of the commands:
+% \begin{quotation}\color{niceblue}
+%	\fontspec{Skia}
+%	  |\textsuperscript*    | \textsuperscript*{abcdefghijklmnopqrstuvwxyz1234567890}\par
+%	  |\textsubscript*      | \textsubscript*{abcdefghijklmnopqrstuvwxyz1234567890}
+% \end{quotation}
+% When the glyphs are not available they will fall back on `faked' ones:
+% (this is {\fontspec{Didot} Didot})
+% \begin{quotation}\color{niceblue}
+%	\fontspec{Didot}
+%	  |\textsuperscript     | \textsuperscript{abcdefghijklmnopqrstuvwxyz1234567890}\par
+%	  |\textsubscript       | \textsubscript{abcdefghijklmnopqrstuvwxyz1234567890}
+% \end{quotation}
+% But beware fonts that contain the necessary font features but lack the full repertoire of glyphs: (this is Adobe Jenson Pro)
+% \begin{quotation}\color{niceblue}
+%	\fontspec{Adobe Jenson Pro}
+%	  |\textsuperscript     | \makebox[0pt][l]{\textsuperscript{abcdefghijklmnopqrstuvwxyz1234567890}}\par
+%	  |\textsubscript       | \makebox[0pt][l]{\textsubscript{abcdefghijklmnopqrstuvwxyz1234567890}}
+% \end{quotation}
+%
+%
+% The macros
+% \cmd\realsubscript,
+% \cmd\realsuperscript,
+% \cmd\fakesubscript, and
+% \cmd\fakesuperscript\
+% may be used to access the `new' and `old' functionalities.
+%
+%
+% \newpage
+% \part{The \textsf{\jobname} package}
+%\iffalse
+%<*package>
+%\fi
+% This is the package implementation.
+%
+%
+% \paragraph{Required packages}
+%    \begin{macrocode}
+\RequirePackage{fontspec}[2010/05/14 v2.0]
+\RequirePackage{fixltx2e}
+%    \end{macrocode}
+%
+% \subsection{Subscript and superscript}
+%
+% For OpenType fonts, the subscript feature (|subs|) is used, but if that doesn't
+% exist then the scientific inferior feature (|sinf|) is used on the assumption
+% that something's better than nothing. This matches current trends in OpenType font design.
+%
+% Footnotes are patched to use this better \cmd\textsuperscript.
+%
+% \begin{macro}{\fakesubscript}
+% \begin{macro}{\fakesuperscript}
+% The old (`fake') methods:
+%    \begin{macrocode}
+\DeclareRobustCommand*\fakesubscript[1]{%
+  \@textsubscript{\selectfont#1}}
+\DeclareRobustCommand*\fakesuperscript[1]{%
+  \@textsuperscript{\selectfont#1}}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\textsubscript}
+% \begin{macro}{\textsubscript*}
+% \begin{macro}{\textsuperscript}
+% \begin{macro}{\textsuperscript*}
+% These commands are either defined to create fake or real sub-/super-scripts if they are starred or not, respectively.
+% Text subscripts:
+%    \begin{macrocode}
+\DeclareRobustCommand*\textsubscript{%
+    \@ifstar{\fakesubscript}{\realsubscript}%
+}
+\DeclareRobustCommand*\textsuperscript{%
+    \@ifstar{\fakesuperscript}{\realsuperscript}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\realsubscript}
+%    \begin{macrocode}
+\ExplSyntaxOn
+\DeclareRobustCommand*\realsubscript[1]{
+  \fontspec_if_fontspec_font:TF
+  {
+%    \end{macrocode}
+% OpenType fonts:
+%    \begin{macrocode}
+    \fontspec_if_opentype:TF
+    {
+      \fontspec_if_feature:nTF {+subs}
+      {
+        {\addfontfeature{VerticalPosition=Inferior}#1}
+      }
+      {
+        \fontspec_if_feature:nTF {+sinf}
+        {
+          {\addfontfeature{VerticalPosition=ScientificInferior}#1}
+        }
+        {
+          \fakesubscript{#1}
+        }
+      }
+    }
+%    \end{macrocode}
+% ATSUI fonts:
+%    \begin{macrocode}
+    {
+      \fontspec_if_aat_feature:nnTF {10} {2}
+      {
+        {\addfontfeature{VerticalPosition=Inferior}#1}
+      }
+      {
+        \fakesubscript{#1}
+      }
+    }
+  }
+%    \end{macrocode}
+% Non-fontspec fonts:
+%    \begin{macrocode}
+  {
+    \fakesubscript{#1}
+  }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\realsuperscript}
+% Text superscripts:
+%    \begin{macrocode}
+\DeclareRobustCommand*\realsuperscript[1]{
+  \fontspec_if_fontspec_font:TF
+  {
+%    \end{macrocode}
+% OpenType fonts:
+%    \begin{macrocode}
+    \fontspec_if_opentype:TF
+    {
+      \fontspec_if_feature:nTF {+sups}
+      {
+        {\addfontfeature{VerticalPosition=Superior}#1}
+      }
+      {
+        \fakesuperscript{#1}
+      }
+    }
+%    \end{macrocode}
+% ATSUI fonts:
+%    \begin{macrocode}
+    {
+      \fontspec_if_aat_feature:nnTF {10} {1}
+      {
+        {\addfontfeature{VerticalPosition=Superior}#1}
+      }
+      {
+        \fakesuperscript{#1}
+      }
+    }
+  }
+%    \end{macrocode}
+% Non-fontspec fonts:
+%    \begin{macrocode}
+  {
+    \fakesuperscript{#1}
+  }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% Patching footnotes:
+% \begin{macro}{\@makefnmark}
+%    \begin{macrocode}
+\def\@makefnmark{\mbox{\normalfont\textsuperscript{\@thefnmark}}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%\iffalse
+%</package>
+%\fi
+%
+% \clearpage
+% \PrintIndex
+%
+% \Finale
+%
+% \typeout{*************************************************************}
+% \typeout{*}
+% \typeout{* To finish the installation you have to move the following}
+% \typeout{* file into a directory searched by XeTeX:}
+% \typeout{*}
+% \typeout{* \space\space\space realscripts.sty}
+% \typeout{*}
+% \typeout{*************************************************************}
+%
+\endinput
+
