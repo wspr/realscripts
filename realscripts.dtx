@@ -47,7 +47,7 @@ This work consists of the file  realscripts.dtx
 %</driver>
 %<package>\ProvidesPackage{realscripts}
 %<*package>
-  [2010/08/05 v0.1 Access OpenType subscripts and superscripts]
+  [2010/09/20 v0.2 Access OpenType subscripts and superscripts]
 %</package>
 %    \end{macrocode}
 %
@@ -77,7 +77,8 @@ This work consists of the file  realscripts.dtx
 %
 % \maketitle
 %
-% \noindent
+% \section{Introduction}
+%
 % OpenType fonts provide the possiblity of using specially-drawn glyphs for
 % subscript and superscript text. \LaTeX\ by default simply uses a smaller
 % font size, which is acceptable if the font has optical sizes. Most fonts
@@ -89,8 +90,29 @@ This work consists of the file  realscripts.dtx
 % \cmd\textsubscript\ commands that take advantage of the OpenType font
 % features.
 %
+% \section{Technical details}
+%
+% Starred versions of the original commands are provided (e.g., \cs{textsubscript*}) for cases where the new commands are not appropriate.
+% The functionality of the starred and non-starred commands can
+% also be accessed using the macros
+% \cmd\realsubscript,
+% \cmd\realsuperscript,
+% \cmd\fakesubscript, and
+% \cmd\fakesuperscript, in case another package (or you wish to)
+% redefine the original \cmd\text\dots\ commands.
+%
 % This package will also patch the default \LaTeX\ footnote mechanism to
-% use \cs{textsuperscript} automatically.
+% use \cs{textsuperscript} automatically. You may change the font used
+% to typeset the footnote numbers (by default it is the \cs{normalfont})
+% by redefining \cs{footnotemarkfont}; e.g.:
+% {\par\qquad\verb|\renewcommand\footnotemarkfont|\marg{font switch}\par}
+% \noindent and users of \pkg{KOMA-Script} may use instead
+% {\par\qquad\verb|\setfkomafont{footnotelabel}|\marg{font switch}\par}
+% \noindent where \meta{font switch} is a command such as \cs{sffamily} or a \pkg{fontspec} font defined with \cs{newfontfamily}.
+%
+% Beware of other packages, however, that change the footnote mechanism. (Usually by redefining \cs{@makefnmark}. I can often work around or work with such packages to \pkg{realscripts} cooperates gracefully with them; please report any conflicts to me.
+%
+% \section{Examples}
 %
 % Here is an example using the `{\fontspec{Skia} Skia}' font of Mac\,OS\,X: (surrounded by `A' and `Z' for visual context)
 %
@@ -120,20 +142,14 @@ This work consists of the file  realscripts.dtx
 %	  |\textsubscript       | A {\textsubscript{abcdefghijklmnopqrstuvwxyz1234567890}} Z
 % \end{quotation}
 %
-% The functionality of the starred and non-starred commands can
-% also be accessed using the macros
-% \cmd\realsubscript,
-% \cmd\realsuperscript,
-% \cmd\fakesubscript, and
-% \cmd\fakesuperscript, in case another package (or you wish to)
-% redefine the original \cmd\text\dots\ commands
-%
 % \newpage
-% \part{The \textsf{\jobname} package}
+% \part{Implementation of \textsf{\jobname}}
 %\iffalse
 %<*package>
 %\fi
 % This is the package implementation.
+% If you're only interested in the footnote redefinition,
+% skip ahead to Section~\ref{sec:fn} on page~\pageref{sec:fn}.
 %
 %    \begin{macrocode}
 \RequirePackage{fontspec}[2010/05/14 v2.0]
@@ -235,15 +251,34 @@ This work consists of the file  realscripts.dtx
 }
 %    \end{macrocode}
 % \end{macro}
-% Patching footnotes:
+%
+% \section{Patching footnotes}
+% \label{sec:fn}
+%
 % \begin{macro}{\@makefnmark}
 % This is the command used to typeset the `footnote mark'.
+% Feel free to redefine it as necessary for your own purposes.
 %    \begin{macrocode}
 \cs_set:Npn \@makefnmark {
-  \mbox{\normalfont\textsuperscript{\@thefnmark}}
+  \mbox{\footnotemarkfont\textsuperscript{\@thefnmark}}
+}
+%    \end{macrocode}
+% We define a \cs{footnotemarkfont} that is used to style
+% the number used for the footnote, which by default is
+% simply \cs{normalfont} (following \LaTeXe's default).
+% If \pkg{KOMA-Script} is
+% being used, we use their hook for the footnotemark font instead.
+%    \begin{macrocode}
+\cs_if_exist:NTF \ftntm@font
+{
+  \cs_new:Npn \footnotemarkfont {\ftntm@font}
+}
+{
+  \cs_new:Npn \footnotemarkfont {\normalfont}
 }
 %    \end{macrocode}
 % \end{macro}
+% Fin.
 %
 %\iffalse
 %</package>
