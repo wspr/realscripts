@@ -156,6 +156,32 @@ This work consists of the file  realscripts.dtx
 \ExplSyntaxOn
 %    \end{macrocode}
 %
+% \begin{macro}{\fakesubscript}
+% \begin{macro}{\fakesuperscript}
+% The old (`fake') methods.
+% Because \cs{textsubscript} is not defined in \LaTeXe,
+% we either define it from scratch along with \cs{textsuperscript}
+% (for consistency),
+% or if it's already defined just use whatever definition
+% is currently active (e.g., if \pkg{fixltx2e} is loaded).
+%    \begin{macrocode}
+\cs_if_exist:NTF \textsubscript
+{
+  \cs_set_eq:NN \fakesubscript \textsubscript
+  \cs_set_eq:NN \fakesuperscript \textsuperscript
+}
+{
+  \DeclareDocumentCommand \fakesubscript {m} {
+    \@textsubscript{\selectfont#1}
+  }
+  \DeclareDocumentCommand \fakesuperscript {m} {
+    \@textsuperscript{\selectfont#1}
+  }
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
 % \begin{macro}{\textsubscript}
 % \begin{macro}{\textsubscript*}
 % \begin{macro}{\textsuperscript}
@@ -174,22 +200,8 @@ This work consists of the file  realscripts.dtx
 % \end{macro}
 % \end{macro}
 %
-% \begin{macro}{\fakesubscript}
-% \begin{macro}{\fakesuperscript}
-% The old (`fake') methods:
-%    \begin{macrocode}
-\DeclareDocumentCommand \fakesubscript {m} {
-  \@textsubscript{\selectfont#1}
-}
-\DeclareDocumentCommand \fakesuperscript {m} {
-  \@textsuperscript{\selectfont#1}
-}
-%    \end{macrocode}
-% \end{macro}
-% \end{macro}
-%
 % \begin{macro}{\realsubscript}
-% The new subscript command to use OpenType features if possible.
+% The new subscript command to use rich font features if possible.
 %    \begin{macrocode}
 \DeclareDocumentCommand \realsubscript {m} {
   \fontspec_if_fontspec_font:TF {
@@ -223,7 +235,7 @@ This work consists of the file  realscripts.dtx
 % \end{macro}
 %
 % \begin{macro}{\realsuperscript}
-% The new superscript command to use OpenType features if possible.
+% The new superscript command to use rich font features if possible.
 %    \begin{macrocode}
 \DeclareDocumentCommand \realsuperscript {m} {
   \fontspec_if_fontspec_font:TF
