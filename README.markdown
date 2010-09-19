@@ -15,6 +15,11 @@ For more information see the documentation realscripts.pdf.
 Change History
 --------------
 
+v0.2
+
+ * Add feature to specify the font of the patched footnotemark.
+   This behaves well with KOMA-Script's `\setkomafont`, as well.
+
 v0.1
 
  * First release
