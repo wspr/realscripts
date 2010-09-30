@@ -47,7 +47,7 @@ This work consists of the file  realscripts.dtx
 %</driver>
 %<package>\ProvidesPackage{realscripts}
 %<*package>
-  [2010/09/20 v0.2 Access OpenType subscripts and superscripts]
+  [2010/09/30 v0.3 Access OpenType subscripts and superscripts]
 %</package>
 %    \end{macrocode}
 %
@@ -90,9 +90,14 @@ This work consists of the file  realscripts.dtx
 % \cmd\textsubscript\ commands that take advantage of the OpenType font
 % features.
 %
+% The \cs{textsubsuperscript}\marg{sub}\marg{super} command is
+% defined for typesetting superscripts above subscripts using the same
+% approach. For symmetry, \cs{textsupersubscript}\marg{super}\marg{sub}
+% is also provided. Options are available to specify the alignment of the sub- and super-scripts; see below.
+%
 % \section{Technical details}
 %
-% Starred versions of the original commands are provided (e.g., \cs{textsubscript*}) for cases where the new commands are not appropriate.
+% The new commands are defined in starred form (e.g., \cs{textsubscript*}) for cases where the new commands are not appropriate.
 % The functionality of the starred and non-starred commands can
 % also be accessed using the macros
 % \cmd\realsubscript,
@@ -110,7 +115,7 @@ This work consists of the file  realscripts.dtx
 % {\par\qquad\verb|\setfkomafont{footnotelabel}|\marg{font switch}\par}
 % \noindent where \meta{font switch} is a command such as \cs{sffamily} or a \pkg{fontspec} font defined with \cs{newfontfamily}.
 %
-% Beware of other packages, however, that change the footnote mechanism. (Usually by redefining \cs{@makefnmark}. I can often work around or work with such packages to \pkg{realscripts} cooperates gracefully with them; please report any conflicts to me.
+% Beware of other packages, however, that change the footnote mechanism. (Usually by redefining \cs{@makefnmark}.) I can often work around or work with such packages so \pkg{realscripts} cooperates gracefully with them; please report any conflicts to me.
 %
 % \section{Examples}
 %
@@ -118,28 +123,43 @@ This work consists of the file  realscripts.dtx
 %
 % \begin{quotation}\color{niceblue}
 %	\fontspec{Skia}
-%	  |\textsuperscript     | A \textsuperscript{abcdefghijklmnopqrstuvwxyz1234567890} Z\par
-%	  |\textsubscript       | A \textsubscript{abcdefghijklmnopqrstuvwxyz1234567890} Z
+%	  |\textsuperscript{…}     | A \textsuperscript{abcdefghijklmnopqrstuvwxyz1234567890} Z\par
+%	  |\textsubscript{…}       | A \textsubscript{abcdefghijklmnopqrstuvwxyz1234567890} Z
 % \end{quotation}
 % The original definitions are available in starred verions of the commands:
 % (compare this example to that above to see why using these features is often desirable)
 % \begin{quotation}\color{niceblue}
 %	\fontspec{Skia}
-%	  |\textsuperscript*    | A \textsuperscript*{abcdefghijklmnopqrstuvwxyz1234567890} Z\par
-%	  |\textsubscript*      | A \textsubscript*{abcdefghijklmnopqrstuvwxyz1234567890} Z
+%	  |\textsuperscript*{…}    | A \textsuperscript*{abcdefghijklmnopqrstuvwxyz1234567890} Z\par
+%	  |\textsubscript*{…}      | A \textsubscript*{abcdefghijklmnopqrstuvwxyz1234567890} Z
 % \end{quotation}
 % When the glyphs are not available the commands will fall back on the standard technique of scaling down the text font:
 % (this is Mac\,OS\,X's `{\fontspec{Didot} Didot}')
 % \begin{quotation}\color{niceblue}
 %	\fontspec{Didot}
-%	  |\textsuperscript     | A \textsuperscript{abcdefghijklmnopqrstuvwxyz1234567890} Z\par
-%	  |\textsubscript       | A \textsubscript{abcdefghijklmnopqrstuvwxyz1234567890} Z
+%	  |\textsuperscript{…}     | A \textsuperscript{abcdefghijklmnopqrstuvwxyz1234567890} Z\par
+%	  |\textsubscript{…}       | A \textsubscript{abcdefghijklmnopqrstuvwxyz1234567890} Z
 % \end{quotation}
 % But beware fonts that contain the necessary font features but lack the full repertoire of glyphs: (this is `{\fontspec{Adobe Jenson Pro}Adobe Jenson Pro}')
 % \begin{quotation}\color{niceblue}
 %	\fontspec{Adobe Jenson Pro}
-%	  |\textsuperscript     | A {\textsuperscript{abcdefghijklmnopqrstuvwxyz1234567890}} Z\par
-%	  |\textsubscript       | A {\textsubscript{abcdefghijklmnopqrstuvwxyz1234567890}} Z
+%	  |\textsuperscript{…}     | A {\textsuperscript{abcdefghijklmnopqrstuvwxyz1234567890}} Z\par
+%	  |\textsubscript{…}       | A {\textsubscript{abcdefghijklmnopqrstuvwxyz1234567890}} Z
+% \end{quotation}
+% Finally, the `combined' commands. Note the dimension available
+% to add some extra space between the sub- and super-scripts, and
+% the optional argument for specifying alignment.
+% for specifying alignment
+% \begin{quotation}\color{niceblue}
+%	\fontspec{Skia}
+%	  |\textsubsuperscript{…}{…}       |
+%    A {\textsubsuperscript{123456}{789}} Z\par\smallskip
+%	  |\setlength\subsupersep{2pt}     | \subsupersep=2pt
+%    A {\textsubsuperscript{123456}{789}} Z\par\smallskip
+%	  |\textsubsuperscript[c]{…}{…}    |
+%    A {\textsubsuperscript[c]{123}{456789}} Z\par\smallskip
+%	  |\textsubsuperscript[r]{…}{…}    |
+%    A {\textsubsuperscript[x]{123456}{789}} Z\par\smallskip
 % \end{quotation}
 %
 % \newpage
@@ -179,10 +199,10 @@ This work consists of the file  realscripts.dtx
 % \begin{macro}{\textsuperscript*}
 % These commands are either defined to create fake or real sub-/super-scripts if they are starred or not, respectively.
 %    \begin{macrocode}
-\DeclareDocumentCommand \textsubscript {s} {
+\RenewDocumentCommand \textsubscript {s} {
     \IfBooleanTF #1 \fakesubscript \realsubscript
 }
-\DeclareDocumentCommand \textsuperscript {s} {
+\RenewDocumentCommand \textsuperscript {s} {
     \IfBooleanTF #1 \fakesuperscript \realsuperscript
 }
 %    \end{macrocode}
@@ -281,6 +301,111 @@ This work consists of the file  realscripts.dtx
 }
 %    \end{macrocode}
 % \end{macro}
+%
+% \section{sub+super}
+%
+% \begin{macro}{\textsubsuperscript}
+% \begin{macro}{\textsupersubscript}
+% Although the implementation below would be fine outside of this package too,
+% no point writing yet another small package. Or is there?
+%    \begin{macrocode}
+\DeclareDocumentCommand \textsubsuperscript {s O{l} mm} {
+  \group_begin:
+  \IfBooleanTF #1
+  {
+    \hbox_set:Nn \l_tmpa_box {\textsubscript*{#3}}
+    \hbox_set:Nn \l_tmpb_box {\textsuperscript*{#4}}
+  }
+  {
+    \hbox_set:Nn \l_tmpa_box {\textsubscript{#3}}
+    \hbox_set:Nn \l_tmpb_box {\textsuperscript{#4}}
+  }
+  \hbox_set:Nn \l_tmpa_box
+    { \box_move_down:nn \subsupersep {\box_use:N \l_tmpa_box} }
+  \hbox_set:Nn \l_tmpb_box
+    { \box_move_up:nn \subsupersep {\box_use:N \l_tmpb_box} }
+  \prg_case_str:nnn {#2}
+  {
+    {l}{\use_i:nnn}
+    {c}{\use_ii:nnn}
+    {r}{\use_iii:nnn}
+  }
+  {
+    \PackageWarning{realscripts}{
+      Unknown~alignment~option~`#2'. \MessageBreak
+      One~ of~ `l',~ `c',~ `r',~ only
+    }
+    \use_i:nnn
+  }
+%    \end{macrocode}
+% Left aligned:
+%    \begin{macrocode}
+  {
+    \hbox_overlap_right:n { \box_use:N \l_tmpa_box }
+    \hbox_overlap_right:n { \box_use:N \l_tmpb_box }
+    \skip_horizontal:n {
+      \dim_max:nn {\box_wd:N \l_tmpa_box} {\box_wd:N \l_tmpb_box}
+    }
+  }
+%    \end{macrocode}
+% Center aligned: (for completeness)
+%    \begin{macrocode}
+  {
+    \dim_compare:nTF { \box_wd:N \l_tmpa_box > \box_wd:N \l_tmpb_box }
+    {
+      \skip_horizontal:n {
+        0.5\box_wd:N \l_tmpa_box-0.5\box_wd:N \l_tmpb_box
+      }
+      \box_use:N \l_tmpb_box
+      \skip_horizontal:n {
+        -0.5\box_wd:N \l_tmpa_box-0.5\box_wd:N \l_tmpb_box
+      }
+      \box_use:N \l_tmpa_box
+    }
+    {
+      \skip_horizontal:n {
+        0.5\box_wd:N \l_tmpb_box-0.5\box_wd:N \l_tmpa_box
+      }
+      \box_use:N \l_tmpa_box
+      \skip_horizontal:n {
+        -0.5\box_wd:N \l_tmpb_box-0.5\box_wd:N \l_tmpa_box
+      }
+      \box_use:N \l_tmpb_box
+    }
+  }
+%    \end{macrocode}
+% Right aligned:
+%    \begin{macrocode}
+  {
+    \skip_horizontal:n {
+      \dim_max:nn {\box_wd:N \l_tmpa_box} {\box_wd:N \l_tmpb_box}
+    }
+    \hbox_overlap_left:n { \box_use:N \l_tmpa_box }
+    \hbox_overlap_left:n { \box_use:N \l_tmpb_box }
+  }
+  \group_end:
+}
+\DeclareDocumentCommand \textsupersubscript {s O{l} mm} {
+  \textsubsuperscript #1 [#2] {#3} {#2}
+}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\dim_new:N \subsupersep
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% Until these are available in expl3:
+%    \begin{macrocode}
+\cs_set:Nn \dim_max:nn {
+  \dim_compare:nTF {#1>#2} {#1} {#2}
+}
+\cs_set:Nn \dim_min:nn {
+  \dim_compare:nTF {#2>#1} {#1} {#2}
+}
+%    \end{macrocode}
+%
 % Fin.
 %
 %\iffalse
