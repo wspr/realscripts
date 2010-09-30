@@ -152,7 +152,7 @@ This work consists of the file  realscripts.dtx
 % skip ahead to Section~\ref{sec:fn} on page~\pageref{sec:fn}.
 %
 %    \begin{macrocode}
-\RequirePackage{fontspec}[2010/05/14 v2.0]
+\RequirePackage{fontspec}
 \ExplSyntaxOn
 %    \end{macrocode}
 %
@@ -161,22 +161,13 @@ This work consists of the file  realscripts.dtx
 % The old (`fake') methods.
 % Because \cs{textsubscript} is not defined in \LaTeXe,
 % we either define it from scratch along with \cs{textsuperscript}
-% (for consistency),
-% or if it's already defined just use whatever definition
-% is currently active (e.g., if \pkg{fixltx2e} is loaded).
+% (for consistency).
 %    \begin{macrocode}
-\cs_if_exist:NTF \textsubscript
-{
-  \cs_set_eq:NN \fakesubscript \textsubscript
-  \cs_set_eq:NN \fakesuperscript \textsuperscript
+\DeclareDocumentCommand \fakesubscript {m} {
+  \@textsubscript{\selectfont#1}
 }
-{
-  \DeclareDocumentCommand \fakesubscript {m} {
-    \@textsubscript{\selectfont#1}
-  }
-  \DeclareDocumentCommand \fakesuperscript {m} {
-    \@textsuperscript{\selectfont#1}
-  }
+\DeclareDocumentCommand \fakesuperscript {m} {
+  \@textsuperscript{\selectfont#1}
 }
 %    \end{macrocode}
 % \end{macro}
