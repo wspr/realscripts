@@ -396,16 +396,6 @@ This work consists of the file  realscripts.dtx
 % \end{macro}
 % \end{macro}
 %
-% Until these are available in expl3:
-%    \begin{macrocode}
-\cs_set:Nn \dim_max:nn {
-  \dim_compare:nTF {#1>#2} {#1} {#2}
-}
-\cs_set:Nn \dim_min:nn {
-  \dim_compare:nTF {#2>#1} {#1} {#2}
-}
-%    \end{macrocode}
-%
 % Fin.
 %
 %\iffalse
