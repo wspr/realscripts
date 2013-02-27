@@ -18,9 +18,14 @@ For more information see the documentation realscripts.pdf.
 Change History
 --------------
 
+v0.3b 2013/02/27
+
+ * Remove internal definition of two functions that have since been defined
+   in expl3 (`\dim_min:nn` and `\dim_max:nn`).
+
 v0.3  2010/09/30
 
- * New commands \textsubsuperscript and \textsupersubscript added.
+ * New commands `\textsubsuperscript` and `\textsupersubscript` added.
 
  * Fix an "infinite loop" bug added in the last version, triggered
    when loading the `xltxtra` package with the `[no-sscript]` option.
@@ -35,11 +40,11 @@ v0.1
 
  * First release
  * Extracted from the xltxtra package
- 
+
 Maintenance
 -----------
 
-The release version of this package is available from CTAN:  
+The release version of this package is available from CTAN:
 
 * <http://ctan.org/pkg/realscripts>
 

@@ -47,7 +47,7 @@ This work consists of the file  realscripts.dtx
 %</driver>
 %<package>\ProvidesPackage{realscripts}
 %<*package>
-  [2010/09/30 v0.3 Access OpenType subscripts and superscripts]
+  [2013/02/27 v0.3b Access OpenType subscripts and superscripts]
 %</package>
 %    \end{macrocode}
 %
@@ -149,7 +149,6 @@ This work consists of the file  realscripts.dtx
 % Finally, the `combined' commands. Note the dimension available
 % to add some extra space between the sub- and super-scripts, and
 % the optional argument for specifying alignment.
-% for specifying alignment
 % \begin{quotation}\color{niceblue}
 %	\fontspec{Skia}
 %	  |\textsubsuperscript{…}{…}       |
@@ -159,7 +158,7 @@ This work consists of the file  realscripts.dtx
 %	  |\textsubsuperscript[c]{…}{…}    |
 %    A {\textsubsuperscript[c]{123}{456789}} Z\par\smallskip
 %	  |\textsubsuperscript[r]{…}{…}    |
-%    A {\textsubsuperscript[x]{123456}{789}} Z\par\smallskip
+%    A {\textsubsuperscript[r]{123456}{789}} Z\par\smallskip
 % \end{quotation}
 %
 % \newpage
@@ -307,7 +306,7 @@ This work consists of the file  realscripts.dtx
 % \begin{macro}{\textsubsuperscript}
 % \begin{macro}{\textsupersubscript}
 % Although the implementation below would be fine outside of this package too,
-% no point writing yet another small package. Or is there?
+% no point writing yet another small package.
 %    \begin{macrocode}
 \DeclareDocumentCommand \textsubsuperscript {s O{l} mm} {
   \group_begin:
