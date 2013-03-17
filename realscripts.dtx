@@ -47,7 +47,7 @@ This work consists of the file  realscripts.dtx
 %</driver>
 %<package>\ProvidesPackage{realscripts}
 %<*package>
-  [2013/02/27 v0.3b Access OpenType subscripts and superscripts]
+  [2013/03/18 v0.3c Access OpenType subscripts and superscripts]
 %</package>
 %    \end{macrocode}
 %
@@ -309,6 +309,7 @@ This work consists of the file  realscripts.dtx
 % no point writing yet another small package.
 %    \begin{macrocode}
 \DeclareDocumentCommand \textsubsuperscript {s O{l} mm} {
+  \leavevmode
   \group_begin:
   \IfBooleanTF #1
   {
@@ -323,7 +324,7 @@ This work consists of the file  realscripts.dtx
     { \box_move_down:nn \subsupersep {\box_use:N \l_tmpa_box} }
   \hbox_set:Nn \l_tmpb_box
     { \box_move_up:nn \subsupersep {\box_use:N \l_tmpb_box} }
-  \prg_case_str:nnn {#2}
+  \str_case:nnn {#2}
   {
     {l}{\use_i:nnn}
     {c}{\use_ii:nnn}
@@ -385,7 +386,9 @@ This work consists of the file  realscripts.dtx
   \group_end:
 }
 \DeclareDocumentCommand \textsupersubscript {s O{l} mm} {
-  \textsubsuperscript #1 [#2] {#3} {#2}
+  \IfBooleanTF #1
+   { \textsubsuperscript * [#2] {#4} {#3} }
+   { \textsubsuperscript   [#2] {#4} {#3} }
 }
 %    \end{macrocode}
 %

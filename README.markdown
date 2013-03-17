@@ -18,6 +18,12 @@ For more information see the documentation realscripts.pdf.
 Change History
 --------------
 
+v0.3c 2013/03/18
+
+ * Fix completely broken `\textsupersubscript`.
+ * Allow `\textsubsuperscript` at the start of a paragraph (!).
+ * Sync with expl3 updates.
+
 v0.3b 2013/02/27
 
  * Remove internal definition of two functions that have since been defined
