@@ -18,6 +18,12 @@ For more information see the documentation realscripts.pdf.
 Change History
 --------------
 
+v0.3d 2016/02/13
+
+ * Fix somewhat important typo in the documentation.
+ * Minor other updates to the docs.
+ * Fix old expl3 syntax change.
+
 v0.3c 2013/03/18
 
  * Fix completely broken `\textsupersubscript`.
@@ -32,7 +38,6 @@ v0.3b 2013/02/27
 v0.3  2010/09/30
 
  * New commands `\textsubsuperscript` and `\textsupersubscript` added.
-
  * Fix an "infinite loop" bug added in the last version, triggered
    when loading the `xltxtra` package with the `[no-sscript]` option.
 
