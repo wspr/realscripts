@@ -324,7 +324,7 @@ This work consists of the file  realscripts.dtx
     { \box_move_down:nn \subsupersep {\box_use:N \l_tmpa_box} }
   \hbox_set:Nn \l_tmpb_box
     { \box_move_up:nn \subsupersep {\box_use:N \l_tmpb_box} }
-  \str_case:nnn {#2}
+  \str_case:nnF {#2}
   {
     {l}{\use_i:nnn}
     {c}{\use_ii:nnn}
