@@ -112,7 +112,7 @@ This work consists of the file  realscripts.dtx
 % by redefining \cs{footnotemarkfont}; e.g.:
 % {\par\qquad\verb|\renewcommand\footnotemarkfont|\marg{font switch}\par}
 % \noindent and users of \pkg{KOMA-Script} may use instead
-% {\par\qquad\verb|\setfkomafont{footnotelabel}|\marg{font switch}\par}
+% {\par\qquad\verb|\setkomafont{footnotelabel}|\marg{font switch}\par}
 % \noindent where \meta{font switch} is a command such as \cs{sffamily} or a \pkg{fontspec} font defined with \cs{newfontfamily}.
 %
 % Beware of other packages, however, that change the footnote mechanism. (Usually by redefining \cs{@makefnmark}.) I can often work around or work with such packages so \pkg{realscripts} cooperates gracefully with them; please report any conflicts to me.
@@ -133,7 +133,7 @@ This work consists of the file  realscripts.dtx
 %	  |\textsuperscript*{…}    | A \textsuperscript*{abcdefghijklmnopqrstuvwxyz1234567890} Z\par
 %	  |\textsubscript*{…}      | A \textsubscript*{abcdefghijklmnopqrstuvwxyz1234567890} Z
 % \end{quotation}
-% When the glyphs are not available the commands will fall back on the standard technique of scaling down the text font:
+% When the font features are not available the commands will fall back on the standard technique of scaling down the text font:
 % (this is Mac\,OS\,X's `{\fontspec{Didot} Didot}')
 % \begin{quotation}\color{niceblue}
 %	\fontspec{Didot}
