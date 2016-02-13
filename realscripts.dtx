@@ -86,7 +86,7 @@ This work consists of the file  realscripts.dtx
 %
 % If you are using the \pkg{fontspec} package\footnote{The \pkg{fontspec} package requires \XeLaTeX\ or \hologo{LuaLaTeX}.} to select OpenType fonts
 % (or other sorts of fonts with the necessary font features), then loading
-% this package will provide versions of the \cmd\textsuperscript\ and
+% this package will redefine the \cmd\textsuperscript\ and
 % \cmd\textsubscript\ commands that take advantage of the OpenType font
 % features.
 %
@@ -97,13 +97,13 @@ This work consists of the file  realscripts.dtx
 %
 % \section{Technical details}
 %
-% The new commands are defined in starred form (e.g., \cs{textsubscript*}) for cases where the new commands are not appropriate.
+% The old commands are defined in starred form (e.g., \cs{textsubscript*}) for cases where the new commands are not appropriate.
 % The functionality of the starred and non-starred commands can
 % also be accessed using the macros
 % \cmd\realsubscript,
 % \cmd\realsuperscript,
 % \cmd\fakesubscript, and
-% \cmd\fakesuperscript, in case another package (or you wish to)
+% \cmd\fakesuperscript, in case another package (or you)
 % redefine the original \cmd\text\dots\ commands.
 %
 % This package will also patch the default \LaTeX\ footnote mechanism to
